@@ -4,13 +4,40 @@ A modular implementation of a secure file system with Discretionary Access Contr
 
 ## Overview
 
-This file system is decomposed into 5 main modules:
+The system uses a layered architecture with well-defined interfaces between modules:
 
-- **UserCommandIO**: Application-level module for handling user commands
-- **DirectoryAccessLayer**: Manages directory access control (DAC)
-- **FileAccessLayer**: Manages file access control (DAC) 
-- **EntityLayer**: Translates between file/directory names and segment addresses
-- **SegmentLayer**: Interfaces with storage and enforces MAC policy
+### System Architecture
+
+![System Architecture Overview-1](structure-1.png)
+
+![System Architecture Overview-2](structure-2.png)
+
+
+
+1. **UserCommandIO Layer**
+   - Parses user commands
+   - Routes operations to appropriate access layers
+   - Handles command validation
+
+2. **DirectoryAccessLayer**
+   - Manages directory permissions
+   - Enforces directory-level DAC
+   - Coordinates with FileAccessLayer
+
+3. **FileAccessLayer**  
+   - Manages file permissions
+   - Enforces file-level DAC
+   - Interfaces with EntityLayer
+
+4. **EntityLayer**
+   - Maps between names and segment addresses
+   - Handles translation of operations
+   - Coordinates with SegmentLayer
+
+5. **SegmentLayer**
+   - Low-level storage operations
+   - Enforces MAC policy
+   - Manages segment allocation
 
 ## Features
 
@@ -25,13 +52,9 @@ This file system is decomposed into 5 main modules:
 ## Requirements
 
 - Python 3.11.5 or higher
-- No additional external dependencies
 
-## Installation
 
-1. Clone the repository
-2. Ensure you have Python 3.11.5+ installed
-3. Navigate to the FileSystem directory
+
 
 ## Usage
 
@@ -88,34 +111,7 @@ Special write operations:
 - `Entity_layer.py`: Name-to-segment address translation
 - `Segment_layer.py`: Low-level storage and MAC implementation
 
-## Architecture
 
-The system uses a layered architecture with well-defined interfaces between modules:
-
-1. **UserCommandIO Layer**
-   - Parses user commands
-   - Routes operations to appropriate access layers
-   - Handles command validation
-
-2. **DirectoryAccessLayer**
-   - Manages directory permissions
-   - Enforces directory-level DAC
-   - Coordinates with FileAccessLayer
-
-3. **FileAccessLayer**  
-   - Manages file permissions
-   - Enforces file-level DAC
-   - Interfaces with EntityLayer
-
-4. **EntityLayer**
-   - Maps between names and segment addresses
-   - Handles translation of operations
-   - Coordinates with SegmentLayer
-
-5. **SegmentLayer**
-   - Low-level storage operations
-   - Enforces MAC policy
-   - Manages segment allocation
 
 ## Security Features
 
